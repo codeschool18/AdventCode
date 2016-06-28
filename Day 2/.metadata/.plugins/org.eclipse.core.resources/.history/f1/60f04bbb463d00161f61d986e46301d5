@@ -1,0 +1,39 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
+public class areaSurface extends easier{
+	public static ArrayList<String> Dimensions;
+	public static int totalArea = 0;
+	public static void main(String[] args){
+		Load(new File("C:\\Dimensions.txt"));
+	}
+	public static void Load(File path){
+		Dimensions = new ArrayList<String>();
+		//String filePath = path;
+		File file = path;
+		try{
+			Scanner in = new Scanner(file);
+			while(in.hasNext()){
+				Dimensions.add(in.next());
+			}
+			if(in != null){
+				in.close();
+			}
+			//Convert();
+		}
+		catch(IOException e){
+			print(e);
+		}
+		PrintFile();
+	}
+	public static void PrintFile(){
+		for(int i = 0; i < Dimensions.size(); i++){
+			String dime[] = Dimensions.get(i).split("X");
+			for(int j = 0; j < dime.length; j++){
+				print(dime[j]);
+			}
+			println();
+		}
+	}
+}

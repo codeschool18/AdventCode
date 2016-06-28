@@ -1,0 +1,28 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
+public class areaSurface extends easier{
+	public static ArrayList<String> BoardUpload;
+	public static void main(String[] args){
+		Load(new File("Dimensions.txt"));
+	}
+	public static void Load(File path){
+		BoardUpload = new ArrayList<String>();
+		//String filePath = path;
+		File file = path;
+		try{
+			Scanner in = new Scanner(file);
+			while(in.hasNext()){
+				BoardUpload.add(in.next());
+			}
+			if(in != null){
+				in.close();
+			}
+			//Convert();
+		}
+		catch(IOException e){
+			print(e);
+		}
+	}
+}
