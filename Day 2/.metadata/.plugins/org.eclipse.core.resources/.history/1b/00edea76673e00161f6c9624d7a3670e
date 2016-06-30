@@ -1,0 +1,68 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
+public class presents extends easier{
+	
+	public static String locations = "";
+	public static ArrayList<String> place = new ArrayList<String>();
+	public static int currentN = 0;
+	public static int currentE = 0;
+	public static int numHouses = 0;
+	public static int visitedMoreThanOnce = 0;
+	
+	public static void main(String[] args) {
+		Load(new File("C:\\directions.txt"));
+	}
+	public static void Load(File path){
+		//String filePath = path;
+		File file = path;
+		try{
+			Scanner in = new Scanner(file);
+			while(in.hasNext()){
+				locations += in.next();
+			}
+			if(in != null){
+				in.close();
+			}
+		}
+		catch(IOException e){
+			print(e);
+		}
+		PrintFile();
+	}
+	public static void PrintFile(){
+		for(int i = 0; i < locations.length(); i++){
+			if(locations.charAt(i) == '^'){
+				currentN++;
+				//println("N");
+			}
+			else if(locations.charAt(i) == '>'){
+				currentE++;
+				//println("E");
+			}
+			else if(locations.charAt(i) == '<'){
+				currentE--;
+				//println("W");
+			}
+			else{
+				currentN--;
+				//println("S");
+			}
+			
+			String currentLoc = currentN + "," + currentE;
+			place.add(currentLoc);
+			println(currentLoc);
+			
+			if(!place.contains(currentLoc)){
+				numHouses++;
+			}
+			else{
+				visitedMoreThanOnce++;
+			}
+		}
+		println(numHouses);
+		println(visitedMoreThanOnce);
+	}
+
+}

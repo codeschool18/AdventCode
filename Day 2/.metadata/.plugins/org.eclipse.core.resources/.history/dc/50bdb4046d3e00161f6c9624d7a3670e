@@ -1,0 +1,86 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
+public class presents extends easier{
+	
+	public static String locations = "";
+	public static ArrayList<String> placeS = new ArrayList<String>();
+	public static ArrayList<String> placeR = new ArrayList<String>();
+	public static int currentNS = 0;
+	public static int currentES = 0;
+	public static int currentNR = 0;
+	public static int currentER = 0;
+	public static int numHousesS = 0;
+	public static int numHousesR = 0;
+	
+	public static void main(String[] args) {
+		Load(new File("C:\\directions.txt"));
+	}
+	public static void Load(File path){
+		//String filePath = path;
+		File file = path;
+		try{
+			Scanner in = new Scanner(file);
+			while(in.hasNext()){
+				locations += in.next();
+			}
+			if(in != null){
+				in.close();
+			}
+		}
+		catch(IOException e){
+			print(e);
+		}
+		PrintFile();
+	}
+	public static void PrintFile(){
+		for(int i = 0; i < locations.length(); i++){
+			if(i % 2 == 0){
+				if(locations.charAt(i) == '^'){
+					currentNS++;
+				}
+				else if(locations.charAt(i) == '>'){
+					currentES++;
+				}
+				else if(locations.charAt(i) == '<'){
+					currentES--;
+				}
+				else{
+					currentNS--;
+				}
+				
+				String currentLoc = new String(currentNS + "," + currentES);
+				if(!placeS.contains(currentLoc) ){
+					numHousesS++;
+				}
+				
+				placeS.add(currentLoc);
+			}
+			else{
+				if(locations.charAt(i) == '^'){
+					currentNR++;
+				}
+				else if(locations.charAt(i) == '>'){
+					currentER++;
+				}
+				else if(locations.charAt(i) == '<'){
+					currentER--;
+				}
+				else{
+					currentNR--;
+				}
+				
+				String currentLoc = new String(currentNR + "," + currentER);
+				if(!placeR.contains(currentLoc) && !placeS.contains(currentLoc)){
+					numHousesR++;
+				}
+				
+				placeR.add(currentLoc);
+			}
+		}
+		println(numHousesS);
+		println(numHousesR);
+	}
+
+}
